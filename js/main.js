@@ -170,18 +170,20 @@ function makeCalendar(dateStart, dateLength) {
 			var weekend = (tempDay + tempCount - 1) + firstDay,
 				dateString = (tempDay + tempCount) + '/' + tempMonth;
 
-			var today = new Date();
-			    currentDay = String(today.getDate()).padStart(2, '0');
-			    currentMonth = String(today.getMonth() + 1).padStart(2, '0');
-			    dateString = currentDay + '/' + currentMonth;
+			var date = new Date();
+			var today = date.getDate() + '/' + date.getMonth();
+					    //currentDay = String(today.getDate()).padStart(2, '0'),
+			    //currentMonth = String(today.getMonth() + 1).padStart(2, '0'),
+			    //dateString = currentDay + '/' + currentMonth;
 
 			// Check if day is weekend and add class name for styling purposes
 			if ( weekend % 7 === 0 || (weekend + 1) % 7 === 0) {
 				$day_cell.classList.add('weekend');
 			}
-
+			console.log(weekend);
 			// Check if the current date is on the calendar and add class name for styling purposes
-			if ( today = currentDay + '/' + currentMonth){
+			console.log(today);
+			if (today === date.getDate()){
 				$day_cell.classList.add('today');
 			}
 
