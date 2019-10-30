@@ -116,7 +116,7 @@ function makeCalendar(dateStart, dateLength) {
 	createNewMonth(startMonth, startYear);
 
 	// Define temporal variables for loop
-	var currentDay, currentMonth, tempDay, tempMonth, tempYear, monthLimit, firstDay, tempCount = 0;
+	var tempDay, tempMonth, tempYear, monthLimit, firstDay, tempCount = 0;
 
 	// Iterate on user input length
 	for (var j = 0; j <= dateLength; j++) {
@@ -171,19 +171,16 @@ function makeCalendar(dateStart, dateLength) {
 				dateString = (tempDay + tempCount) + '/' + tempMonth;
 
 			var date = new Date();
-			var today = date.getDate() + '/' + date.getMonth();
-					    //currentDay = String(today.getDate()).padStart(2, '0'),
-			    //currentMonth = String(today.getMonth() + 1).padStart(2, '0'),
-			    //dateString = currentDay + '/' + currentMonth;
+			var today = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
+			    dateTodayString = (tempDay + tempCount) + '/' + tempMonth + '/' + tempYear;
 
 			// Check if day is weekend and add class name for styling purposes
 			if ( weekend % 7 === 0 || (weekend + 1) % 7 === 0) {
 				$day_cell.classList.add('weekend');
 			}
-			console.log(weekend);
+
 			// Check if the current date is on the calendar and add class name for styling purposes
-			console.log(today);
-			if (today === date.getDate()){
+			if (today === dateTodayString){
 				$day_cell.classList.add('today');
 			}
 
@@ -197,6 +194,17 @@ function makeCalendar(dateStart, dateLength) {
 		// Increment temp day counter
 		tempCount++;
 	}
+
+	// Call JSON files for Holiday
+	var  code = document.getElementById('countryCode').value;
+	var url = 'holidays/' + code + '.json';
+	fetch(url).then(function(response){
+		response.json().then(function(holidays){
+			console.log(holidays);
+		})
+	})
+	console.log(code);
+	console.log(url);
 
 	// Remove loader once all selected days/months are rendered
 	window.setTimeout(function() {
