@@ -197,7 +197,7 @@ function makeCalendar(dateStart, dateLength) {
 
 	// Call JSON files for Holiday
 	var  code = document.getElementById('countryCode').value;
-	var url = 'holidays/' + code + '.json';
+	var url = 'https://github.com/estebanTrejos/estebanTrejos.github.io/tree/master/holidays/' + code + '.json';
 	fetch(url).then(function(response){
 		response.json().then(function(holidays){
 			console.log(holidays);
