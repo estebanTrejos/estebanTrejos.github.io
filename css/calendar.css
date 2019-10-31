@@ -69,6 +69,12 @@
 
 .month ul > li.today,
 .month ol > li.today {
+	background-color: #444;
+	color: #FFF;
+}
+
+.month ul > li.holiday,
+.month ol > li.holiday {
 	background-color: #3d9438;
 	color: #FFF;
 }

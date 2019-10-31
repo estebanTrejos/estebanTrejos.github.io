@@ -24,7 +24,7 @@ const validations = {
 		return value.match(/^([1-9][0-9]{0,2})$/);
 	},
 	countryCode: function(value) {
-		return value.match(/^[a-zA-Z]{2}$/);
+		return value.match(/^[a-z]{2}$/);
 	}
 };
 
@@ -33,7 +33,7 @@ var messages = {
 	required: 'Required field',
 	dateFormat: 'Invalid date format. Please use mm/dd/yyyy',
 	daysLength: 'Use only numeric chacters between 1 and 999.',
-	countryCode: 'Use only two alphabetic characters from A to Z.'
+	countryCode: 'Use only two alphabetic characters from a to z, in lowercase.'
 }
 
 
@@ -197,14 +197,24 @@ function makeCalendar(dateStart, dateLength) {
 
 	// Call JSON files for Holiday
 	var  code = document.getElementById('countryCode').value;
-	var url = 'https://github.com/estebanTrejos/estebanTrejos.github.io/tree/master/holidays/' + code + '.json';
-	fetch(url).then(function(response){
-		response.json().then(function(holidays){
-			console.log(holidays);
-		})
-	})
 	console.log(code);
-	console.log(url);
+	if (code == 'cr'){
+		var url = 'https://estebanTrejos.github.io/holidays/' + code + '.json';
+		fetch(url).then(function(response){
+			response.json().then(function(holidays){
+				console.log(holidays);
+			})
+		})	
+	} else {
+		var url = 'https://estebanTrejos.github.io/holidays/int.json';
+		fetch(url).then(function(response){
+			response.json().then(function(holidays){
+				console.log(holidays);
+			})
+		})
+	}
+
+
 
 	// Remove loader once all selected days/months are rendered
 	window.setTimeout(function() {
