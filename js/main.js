@@ -1,7 +1,7 @@
 /*
  *  Variables
  */
-
+var holiday;
 
 // Get DOM primary elements
 const cal = document.getElementById('calendar');
@@ -184,6 +184,9 @@ function makeCalendar(dateStart, dateLength) {
 				$day_cell.classList.add('today');
 			}
 
+
+			console.log(holiday);
+
 			// Append day name to month table container
 			$day_cell.appendChild($day_name);
 			$month.appendChild($day_cell);
@@ -194,27 +197,6 @@ function makeCalendar(dateStart, dateLength) {
 		// Increment temp day counter
 		tempCount++;
 	}
-
-	// Call JSON files for Holiday
-	var  code = document.getElementById('countryCode').value;
-	console.log(code);
-	if (code == 'cr'){
-		var url = 'https://estebanTrejos.github.io/holidays/' + code + '.json';
-		fetch(url).then(function(response){
-			response.json().then(function(holidays){
-				console.log(holidays);
-			})
-		})	
-	} else {
-		var url = 'https://estebanTrejos.github.io/holidays/int.json';
-		fetch(url).then(function(response){
-			response.json().then(function(holidays){
-				console.log(holidays);
-			})
-		})
-	}
-
-
 
 	// Remove loader once all selected days/months are rendered
 	window.setTimeout(function() {
@@ -330,6 +312,23 @@ function fillEmptyMonth(year, month, start, length) {
 	}
 }
 
+function getJSON(start, length, code){
+	console.log(code);
+	if (code == 'cr'){
+		var url = 'https://estebanTrejos.github.io/holidays/' + code + '.json';
+		fetch(url).then(function(response){
+			response = holiday;
+			makeCalendar(start, length);
+		})	
+	} else {
+		var url = 'https://estebanTrejos.github.io/holidays/int.json';
+		fetch(url).then(function(response){
+			response = holiday;
+			makeCalendar(start, length);
+		})
+	}
+}
+
 
 // Validate form data and submit
 function validateForm() {
@@ -401,7 +400,7 @@ function validateForm() {
 			}
 
 			cal.scrollTop = 0;
-			makeCalendar(inputArray[0].value, inputArray[1].value);
+			getJSON(inputArray[0].value, inputArray[1].value, inputArray[2].value);
 			document.querySelector('button.btn-orange').textContent = 'Update Calendar';
 		}
 
