@@ -169,6 +169,7 @@ function makeCalendar(dateStart, dateLength) {
 
 			var weekend = (tempDay + tempCount - 1) + firstDay,
 				dateString = (tempDay + tempCount) + '/' + tempMonth;
+				dateStringHoliday = (tempDay + tempCount) + '/' + tempMonth;
 
 			var date = new Date();
 			var today = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
@@ -184,7 +185,13 @@ function makeCalendar(dateStart, dateLength) {
 				$day_cell.classList.add('today');
 			}
 
+			// Check for Holidays and assign class
+			if (holiday.hasOwnProperty(dateStringHoliday)) {
+				$day_cell.classList.add('holiday');
+			}
 
+			console.log(holiday['1/0'][0][name]);
+			console.log(holiday.name);
 			console.log(holiday);
 
 			// Append day name to month table container
@@ -312,19 +319,23 @@ function fillEmptyMonth(year, month, start, length) {
 	}
 }
 
+// Obtains JSON file for Holidays with user input and calls makeCalendar to create the calendar
 function getJSON(start, length, code){
-	console.log(code);
 	if (code == 'cr'){
 		var url = 'https://estebanTrejos.github.io/holidays/' + code + '.json';
 		fetch(url).then(function(response){
-			response = holiday;
-			makeCalendar(start, length);
+			return response.json().then(function(Holiday){
+				holiday = Holiday;
+				makeCalendar(start, length);
+			})
 		})	
 	} else {
 		var url = 'https://estebanTrejos.github.io/holidays/int.json';
 		fetch(url).then(function(response){
-			response = holiday;
-			makeCalendar(start, length);
+			return response.json().then(function(Holiday){
+				holiday = Holiday;
+				makeCalendar(start, length);
+			})
 		})
 	}
 }
