@@ -188,7 +188,9 @@ function makeCalendar(dateStart, dateLength) {
 			if (holiday.hasOwnProperty(dateString)) {
 				$day_cell.classList.add('holiday');
 				var names = holiday[dateString][0]['name'];
-				alert(names);
+				$day_cell.addEventListener("click", function(){
+					alert(names);
+				});
 			}
 
 			// Append day name to month table container
