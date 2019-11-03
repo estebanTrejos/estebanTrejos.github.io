@@ -169,7 +169,6 @@ function makeCalendar(dateStart, dateLength) {
 
 			var weekend = (tempDay + tempCount - 1) + firstDay,
 				dateString = (tempDay + tempCount) + '/' + tempMonth;
-				dateStringHoliday = (tempDay + tempCount) + '/' + tempMonth;
 
 			var date = new Date();
 			var today = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
@@ -185,14 +184,12 @@ function makeCalendar(dateStart, dateLength) {
 				$day_cell.classList.add('today');
 			}
 
-			// Check for Holidays and assign class
-			if (holiday.hasOwnProperty(dateStringHoliday)) {
+			// Check for Holidays and assign class, then display the name of the holiday when clicked on
+			if (holiday.hasOwnProperty(dateString)) {
 				$day_cell.classList.add('holiday');
+				var names = holiday[dateString][0]['name'];
+				alert(names);
 			}
-
-			console.log(holiday['1/0'][0][name]);
-			console.log(holiday.name);
-			console.log(holiday);
 
 			// Append day name to month table container
 			$day_cell.appendChild($day_name);
